@@ -1,99 +1,150 @@
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Student Portal - Batch Jan 2024</title>
+  <link href="https://fonts.googleapis.com/css2?family=Segoe+UI&display=swap" rel="stylesheet">
   <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-storage-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
   <style>
-    body { font-family: Arial, sans-serif; padding: 20px; background: #f7f7f7; }
-    h1, h2, h3 { color: #2c3e50; }
-    .section { margin-bottom: 30px; padding: 20px; background: #fff; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-    ul { list-style-type: none; padding-left: 0; }
-    li { margin-bottom: 5px; }
-    input[type="file"] { margin-top: 10px; }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f0f4f8;
+      color: #2c3e50;
+    }
+    header {
+      background-color: #3498db;
+      color: white;
+      padding: 40px 20px;
+      text-align: center;
+    }
+    .container {
+      padding: 20px;
+      max-width: 1100px;
+      margin: auto;
+    }
+    .section {
+      background-color: #ffffff;
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 32px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.05);
+    }
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    .card {
+      background: #fff;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .btn-upload {
+      background-color: #2980b9;
+      color: white;
+      border: none;
+      padding: 10px 18px;
+      font-size: 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    .btn-upload:hover {
+      background-color: #1c5980;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #eee;
+      font-size: 14px;
+    }
   </style>
 </head>
 <body>
-  <h1>Student Portal - Batch Jan 2024</h1>
+
+<header>
+  <h1>🎓 Student Portal - Batch Jan 2024</h1>
+  <p>Portal rasmi untuk maklumat kelas, nota, dan aktiviti</p>
+</header>
+
+<div class="container">
 
   <div class="section">
     <h2>High Committee</h2>
-    <ul>
-      <li>PRESIDEN - WAN NOR LAILA BINTI MOHD YUSOF</li>
-      <li>NAIB PRESIDEN - MUHAMMAD HAFIZ HAKIMI BIN BUNIAMIN</li>
-      <li>SETIAUSAHA - SITI NUR ATHIRAH BINTI ZAKARIA</li>
-      <li>BENDAHARI I - MUHAMMAD AKMAL NIZAM BIN ISMAIL</li>
-      <li>BENDAHARI II - NIK NUR HANISYA BINTI NIK HASRAM</li>
-      <li>JURUAUDIT - MOHAMAD HISYAM BIN MD NOOR</li>
-    </ul>
+    <div class="card-grid">
+      <div class="card"><h3>PRESIDEN</h3><p>WAN NOR LAILA BINTI MOHD YUSOF</p></div>
+      <div class="card"><h3>NAIB PRESIDEN</h3><p>MUHAMMAD HAFIZ HAKIMI BIN BUNIAMIN</p></div>
+      <div class="card"><h3>SETIAUSAHA</h3><p>SITI NUR ATHIRAH BINTI ZAKARIA</p></div>
+      <div class="card"><h3>BENDAHARI I</h3><p>MUHAMMAD AKMAL NIZAM BIN ISMAIL</p></div>
+      <div class="card"><h3>BENDAHARI II</h3><p>NIK NUR HANISYA BINTI NIK HASRAM</p></div>
+      <div class="card"><h3>JURUAUDIT</h3><p>MOHAMAD HISYAM BIN MD NOOR</p></div>
+    </div>
   </div>
 
   <div class="section">
-    <h2>AJK Kelas</h2>
-    <p><strong>AJK KEHADIRAN:</strong></p>
-    <ul><li>NUR SYAMIRA BINTI EPENDI</li><li>NOR ERIN NATASHA BINTI NESRUDDIN</li><li>NUR FATIN ADILA BINTI NOOR HASSRUL</li><li>NUR IDAYU AMIRAH BINTI LANHAWARI</li><li>NUR IMANINA BINTI AZMI</li></ul>
-  </div>
-
-  <div class="section">
-    <h2>Upload Lecture Notes</h2>
+    <h2>Muat Naik Nota Kuliah</h2>
     <label for="subject">Pilih Subjek:</label>
     <select id="subject">
       <option value="NSWH2104">NSWH 2104: Women Health Nursing</option>
       <option value="NSGN2112">NSGN 2112: Gerontology Nursing</option>
       <option value="NSCH2122">NSCH 2122: Community Health Nursing</option>
-    </select>
-    <br><br>
-    <input type="file" id="lectureNotes">
-    <button onclick="uploadLectureNotes()">Upload</button>
+    </select><br>
+    <input type="file" id="lectureNotes" />
+    <button class="btn-upload" onclick="uploadLectureNotes()">Upload</button>
     <p id="uploadStatus"></p>
   </div>
 
   <div class="section">
-    <h2>Upload Jadual & Lain-lain</h2>
-    <p>Upload jadual kelas, kokurikulum, jadual bertugas:</p>
-    <input type="file" id="generalUpload">
-    <button onclick="uploadGeneral()">Upload</button>
+    <h2>Jadual dan Dokumen Tambahan</h2>
+    <input type="file" id="generalUpload" />
+    <button class="btn-upload" onclick="uploadGeneral()">Upload</button>
     <p id="generalUploadStatus"></p>
   </div>
 
-  <script>
-    const firebaseConfig = {
-      apiKey: "YOUR_API_KEY",
-      authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-      projectId: "YOUR_PROJECT_ID",
-      storageBucket: "YOUR_PROJECT_ID.appspot.com",
-      messagingSenderId: "YOUR_SENDER_ID",
-      appId: "YOUR_APP_ID"
-    };
+</div>
 
-    firebase.initializeApp(firebaseConfig);
-    const storage = firebase.storage();
+<footer>
+  &copy; 2025 Student Portal Jan 2024 | Dibangunkan oleh Komuniti Kelas
+</footer>
 
-    function uploadLectureNotes() {
-      const file = document.getElementById('lectureNotes').files[0];
-      const subject = document.getElementById('subject').value;
-      const storageRef = storage.ref(`lecture_notes/${subject}/${file.name}`);
+<script>
+  const firebaseConfig = {
+    apiKey: "YOUR_API_KEY",
+    authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+    projectId: "YOUR_PROJECT_ID",
+    storageBucket: "YOUR_PROJECT_ID.appspot.com",
+    messagingSenderId: "YOUR_SENDER_ID",
+    appId: "YOUR_APP_ID"
+  };
+  firebase.initializeApp(firebaseConfig);
+  const storage = firebase.storage();
 
-      storageRef.put(file).then(snapshot => {
-        document.getElementById('uploadStatus').innerText = 'Upload berjaya untuk ' + file.name;
-      }).catch(error => {
-        document.getElementById('uploadStatus').innerText = 'Gagal upload: ' + error.message;
-      });
-    }
+  function uploadLectureNotes() {
+    const file = document.getElementById('lectureNotes').files[0];
+    const subject = document.getElementById('subject').value;
+    const storageRef = storage.ref(`lecture_notes/${subject}/${file.name}`);
+    storageRef.put(file).then(() => {
+      document.getElementById('uploadStatus').innerText = 'Upload berjaya untuk ' + file.name;
+    }).catch(error => {
+      document.getElementById('uploadStatus').innerText = 'Gagal upload: ' + error.message;
+    });
+  }
 
-    function uploadGeneral() {
-      const file = document.getElementById('generalUpload').files[0];
-      const storageRef = storage.ref(`general_uploads/${file.name}`);
+  function uploadGeneral() {
+    const file = document.getElementById('generalUpload').files[0];
+    const storageRef = storage.ref(`general_uploads/${file.name}`);
+    storageRef.put(file).then(() => {
+      document.getElementById('generalUploadStatus').innerText = 'Upload berjaya untuk ' + file.name;
+    }).catch(error => {
+      document.getElementById('generalUploadStatus').innerText = 'Gagal upload: ' + error.message;
+    });
+  }
+</script>
 
-      storageRef.put(file).then(snapshot => {
-        document.getElementById('generalUploadStatus').innerText = 'Upload berjaya untuk ' + file.name;
-      }).catch(error => {
-        document.getElementById('generalUploadStatus').innerText = 'Gagal upload: ' + error.message;
-      });
-    }
-  </script>
 </body>
 </html>
